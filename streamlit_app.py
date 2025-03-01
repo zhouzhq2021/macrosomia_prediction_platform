@@ -25,33 +25,42 @@ with st.sidebar:
     st.markdown("---")
     st.markdown("**About the Study**")
     st.markdown("""
-    This research focuses on developing an ensemble learning model to predict macrosomia risk 
-    using maternal and fetal characteristics during pregnancy.
+    This study aims to integrate a series of physical records, biochemical tests, 
+                imaging tests and other clinical examination results during pregnancy, 
+                and on the basis of mining the key influencing factors of macrosomia, 
+                combine multiple machine learning and deep learning models, 
+                and introduce the Ensemble Learning (EL) method to establish a more objective and comprehensive, 
+                accurate and efficient prediction model of macrosomia, 
+                and overcome the low model accuracy of existing research methods.
     """)
 
 # Page routing
 if page == "App Introduction":
-    st.title("Macrosomia Risk Prediction System")
+    st.title("Ensemble Learning-based Risk Prediction of Macrosomia Occurrence Study")
     st.markdown("### Research Background")
     st.markdown("""
-    Macrosomia (birth weight ≥4000g) poses significant risks to both mothers and infants. 
-    This ensemble learning model integrates multiple clinical parameters to provide early risk assessment.
+        Macrosomia is one of the most common complications of pregnancy. In clinical practice, 
+        macrosomia is typically defined as a birth weight of 4000 grams or more, regardless of gestational age.
+        As a pregnancy complication, macrosomia poses significant health and life threats to both the mother and the fetus. 
+        
+        \n
+         
+        To date, the accurate diagnosis of macrosomia still relies primarily on the measurement of the infant's weight after birth. 
+        Techniques such as two-dimensional ultrasound, three-dimensional ultrasound, and magnetic resonance imaging (MRI) 
+        have limitations in accurately estimating fetal weight. Thus, effectively utilizing existing maternal examination 
+        results to accurately predict the probability of macrosomia is crucial for improving pregnancy outcomes and 
+        safeguarding the health of both mother and infant.
+
+        
     """)
     
     st.markdown("### Model Architecture")
-    try:
-        img = Image.open('images/model_structure.png')  # Prepare your model structure image
-        st.image(img, caption='Stacking Ensemble Model Structure')
-    except:
-        pass
+    # st.markdown(""" """)
+
+
+    img = Image.open('Stacking.png')  
+    st.image(img, caption='Stacking Ensemble Model Structure', width=400)
     
-    st.markdown("### Training Process")
-    st.markdown("""
-    - Dataset: Clinical data from 5000 pregnancies
-    - Features: 14 key maternal/fetal parameters
-    - Algorithm: Stacking ensemble of ***
-    - Validation: 10-fold cross-validation (AUC: 0.89)
-    """)
 
 elif page == "Model Prediction":
     st.title("Risk Prediction Interface")
@@ -186,9 +195,8 @@ elif page == "Model Prediction":
             st.error(f"Error in prediction: {str(e)}")
 
 elif page == "User Guide":
-    st.title("📝 User Manual")
-    
-    st.markdown("### 🖥 Interface Overview")
+    st.title("How to use this Macrosomia Predictive System ")
+
     
     st.markdown("### 📋 Input Guidelines")
     st.markdown("""
@@ -203,7 +211,7 @@ elif page == "User Guide":
     
     st.markdown("### ⚠️ Precautions")
     st.markdown("""
-    - All data should be collected between 25-32 weeks gestation
+    - All data should be collected before 32 weeks gestation
     - Measurement methods must follow standard protocols
     - Results should be interpreted by qualified clinicians
     """)
@@ -222,7 +230,9 @@ footer = """<style>
 }
 </style>
 <div class="footer">
-<p>Developed by AIMSLab - Macrosomia Prediction System © 2025</p>
+<p>Developed by zhouzhq2021@lzu.edu.cn © 2025</p>
 </div>
 """
 st.markdown(footer, unsafe_allow_html=True)
+
+# <p>Developed by AIMSLab - Macrosomia Prediction System © 2025</p>
