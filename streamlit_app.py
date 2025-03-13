@@ -49,7 +49,7 @@ if page == "App Introduction":
         Techniques such as two-dimensional ultrasound, three-dimensional ultrasound, and magnetic resonance imaging (MRI) 
         have limitations in accurately estimating fetal weight. Thus, effectively utilizing existing maternal examination 
         results to accurately predict the probability of macrosomia is crucial for improving pregnancy outcomes and 
-        safeguarding the health of both mother and infant.
+        safeguarding the health of both mother and fetus.
 
         
     """)
@@ -69,7 +69,7 @@ elif page == "Model Prediction":
     col1, col2 = st.columns(2)
 
     feature_mapping = {
-        "BMI": "Gestational Weeks",
+        "BMI": "BMI",
         "怀孕孕周": "Gestational Weeks",
         "空腹葡萄糖": "Fasting Glucose (mmol/L)",
         "25-32周婴儿胎盘厚": "Placental Thickness (mm)",
