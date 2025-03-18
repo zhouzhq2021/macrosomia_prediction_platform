@@ -58,7 +58,6 @@ with st.sidebar:
                    ["Introduction", 
                     "Prediction Platform"],
                    label_visibility="collapsed") 
-    """)
 
       # 添加间隔装饰线
     st.markdown("---")
@@ -83,7 +82,6 @@ if page == "Introduction":
 
     img = Image.open('Stacking.png')
     st.markdown('''
-    ```html
     <style>
     .img-container {
         display: flex;
@@ -101,7 +99,7 @@ if page == "Introduction":
         st.markdown('</div>', unsafe_allow_html=True)
 
     st.markdown("### Introduction to the 14 input model predictors")
-    st.markdown(" 
+    st.markdown("""
     | **Maternal Characteristics** | **Metabolic and Immunologic Indicators**       | **Fetal Ultrasound**       |
     |-------------------------------|----------------------------------------|----------------------------------------|
     | BMI                           | Thyroid Peroxidase Antibodies (1-20w) | Placenta Thickness (25-32w)       |
@@ -110,7 +108,7 @@ if page == "Introduction":
     | Pregnant Woman's Parity       | Free FT4 (1-20w)                      | Femur Length (25-32w)                  |
     |                               |                                        | Fetal Position (25-32w)               |
     |                               |                                        | Baby Gender                           |
-    ")
+    """ )
     st.markdown(" \n The first eight characteristics in the table are core continuous predictors and the last six are core subtype predictors. The system consists of three dimensions: maternal characteristics, metabolic and immunologic indicators, and fetal ultrasound.")
 
 
@@ -239,13 +237,13 @@ elif page == "Prediction Platform":
                     st.metric("Macrosomia Risk Probability", f"{risk_prob*100:.1f}%")
                         
                     with col_gauge:
-                        gauge_html = f"""
+                        gauge_html = f'''
                         <div style="width: 100%; background: #f0f2f6; border-radius: 10px; padding: 20px;">
                             <div style="width: {risk_prob*100}%; height: 20px; background: {'#ff4b4b' if risk_prob > 0.5 else '#4CAF50'}; 
                                 border-radius: 5px; transition: 0.3s;"></div>
                             <p style="text-align: center; margin-top: 10px;">Risk Level Indicator</p>
                         </div>
-                        """
+                        '''
                         st.markdown(gauge_html, unsafe_allow_html=True)
                     
                 st.markdown("---")
@@ -262,7 +260,9 @@ elif page == "Prediction Platform":
 
 # Add footer
 st.markdown("---")
-footer = """<style>
+
+st.markdown('''
+<style>
 .footer {
     position: fixed;
     left: 0;
@@ -273,10 +273,6 @@ footer = """<style>
     text-align: center;
 }
 </style>
-<div class="footer">
-<p>Developed by zhouzhq2021@lzu.edu.cn © 2025</p>
-</div>
-"""
-st.markdown(footer, unsafe_allow_html=True)
+<div class="footer"><p>Developed by zhouzhq2021@lzu.edu.cn © 2025</p></div>''', unsafe_allow_html=True)
 
 # <p>Developed by AIMSLab - Macrosomia Prediction System © 2025</p>
