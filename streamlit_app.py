@@ -13,6 +13,8 @@ def load_models():
 
 model, scaler = load_models()
 
+st.set_page_config(layout="wide")
+
 # Sidebar
 with st.sidebar:
 
@@ -84,11 +86,12 @@ if page == "Introduction":
     st.markdown('''
     <style>
     .img-container {
-        display: flex;
-        justify-content: center;
-        padding: 20px 0;
+        display: flex !important;
+        justify-content: center !important;
+        width: 100% !important;  # 关键：强制占满父容器宽度
     }
-    </style>''', unsafe_allow_html=True)
+    </style>
+    ''', unsafe_allow_html=True)
 
     with st.container():
         st.markdown('<div class="img-container">', unsafe_allow_html=True)
