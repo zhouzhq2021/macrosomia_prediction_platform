@@ -97,7 +97,7 @@ if page == "Introduction":
         st.markdown('<div class="img-container">', unsafe_allow_html=True)
         st.image(img, 
                 caption='Stacking Ensemble Model Architecture', 
-                width=350) 
+                width=420) 
         st.markdown('</div>', unsafe_allow_html=True)
 
     st.markdown("### Introduction to the 14 input model predictors")
