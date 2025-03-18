@@ -82,15 +82,15 @@ if page == "Introduction":
     # st.image(img, caption='Stacking Ensemble Model Architecture', width=350)
 
     img = Image.open('Stacking.png')
-    st.markdown("""
-        <style>
-        .img-container {
-                display: flex;
-                justify-content: center;
-                padding: 20px 0;
-            }
-        </style>
-    """, unsafe_allow_html=True)
+    st.markdown('''
+    ```html
+    <style>
+    .img-container {
+        display: flex;
+        justify-content: center;
+        padding: 20px 0;
+    }
+    </style>''', unsafe_allow_html=True)
 
     with st.container():
         st.markdown('<div class="img-container">', unsafe_allow_html=True)
@@ -116,7 +116,7 @@ if page == "Introduction":
 
 elif page == "Prediction Platform":
 
-    html_1 = f""" 
+    st.markdown('''
     <style>
         div.button-container {
             display: flex;
@@ -139,9 +139,7 @@ elif page == "Prediction Platform":
             box-shadow: 0 6px 12px rgba(0,0,0,0.2);
             background: linear-gradient(135deg, #2c3e50, #3498db);
         }
-    </style>"""
-
-    st.markdown(html_1, unsafe_allow_html=True)
+    </style>''' , unsafe_allow_html=True)
 
     st.title("Interface of Risk Prediction for Macrosomia Occurrence")
     
