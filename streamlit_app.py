@@ -126,6 +126,37 @@ if page == "Introduction":
 
 
 elif page == "Prediction Platform":
+
+    st.markdown("""
+    <style>
+        /* 主容器样式 */
+        div.button-container {
+            display: flex;
+            justify-content: center;
+            margin: 30px 0;
+        }
+        
+        /* 按钮核心样式 */
+        div.stButton > button {
+            font-size: 1.2rem !important;
+            padding: 15px 40px !important;
+            border-radius: 25px !important;
+            background: linear-gradient(135deg, #3498db, #2c3e50);
+            color: white !important;
+            border: none !important;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+        
+        /* 悬停动效 */
+        div.stButton > button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 12px rgba(0,0,0,0.2);
+            background: linear-gradient(135deg, #2c3e50, #3498db);
+        }
+    </style>
+    """, unsafe_allow_html=True)
+
     st.title("Interface of Risk Prediction for Macrosomia Occurrence")
     
     # Create input columns
@@ -207,40 +238,42 @@ elif page == "Prediction Platform":
     input_df = pd.concat([input_df_1, other_data_df], axis=1)
     
     # Normalization and prediction
-    if st.button("Predict Risk"):
-        try:
-            print(input_df)
-            risk_prob = model.predict_proba(input_df)[0][1]
-                
-            # Display results
-            st.markdown("---")
-            st.subheader("📊 Prediction Results")
-                
-            # Visual display
-            col_result, col_gauge = st.columns(2)
-            with col_result:
-                st.metric("Macrosomia Risk Probability", f"{risk_prob*100:.1f}%")
+    with st.container():
+        st.markdown('<div class="button-container">', unsafe_allow_html=True)
+        if st.button("Predict Risk"):
+            try:
+                print(input_df)
+                risk_prob = model.predict_proba(input_df)[0][1]
                     
-                with col_gauge:
-                    gauge_html = f"""
-                    <div style="width: 100%; background: #f0f2f6; border-radius: 10px; padding: 20px;">
-                        <div style="width: {risk_prob*100}%; height: 20px; background: {'#ff4b4b' if risk_prob > 0.5 else '#4CAF50'}; 
-                            border-radius: 5px; transition: 0.3s;"></div>
-                        <p style="text-align: center; margin-top: 10px;">Risk Level Indicator</p>
-                    </div>
-                    """
-                    st.markdown(gauge_html, unsafe_allow_html=True)
-                
-            st.markdown("---")
-            if risk_prob > 0.7:
-                st.error("🚨 High Risk: Recommend clinical consultation and further monitoring.")
-            elif risk_prob > 0.4:
-                st.warning("⚠️ Moderate Risk: Suggest increased monitoring frequency, and consider additional clinical examinations.")
-            else:
-                st.success("✅ Low Risk: Maintain routine prenatal care. Regular check-ups are recommended.")
+                # Display results
+                st.markdown("---")
+                st.subheader("📊 Prediction Results")
+                    
+                # Visual display
+                col_result, col_gauge = st.columns(2)
+                with col_result:
+                    st.metric("Macrosomia Risk Probability", f"{risk_prob*100:.1f}%")
+                        
+                    with col_gauge:
+                        gauge_html = f"""
+                        <div style="width: 100%; background: #f0f2f6; border-radius: 10px; padding: 20px;">
+                            <div style="width: {risk_prob*100}%; height: 20px; background: {'#ff4b4b' if risk_prob > 0.5 else '#4CAF50'}; 
+                                border-radius: 5px; transition: 0.3s;"></div>
+                            <p style="text-align: center; margin-top: 10px;">Risk Level Indicator</p>
+                        </div>
+                        """
+                        st.markdown(gauge_html, unsafe_allow_html=True)
+                    
+                st.markdown("---")
+                if risk_prob > 0.7:
+                    st.error("🚨 High Risk: Recommend clinical consultation and further monitoring.")
+                elif risk_prob > 0.4:
+                    st.warning("⚠️ Moderate Risk: Suggest increased monitoring frequency, and consider additional clinical examinations.")
+                else:
+                    st.success("✅ Low Risk: Maintain routine prenatal care. Regular check-ups are recommended.")
 
-        except Exception as e:
-            st.error(f"Error in prediction: {str(e)}")
+            except Exception as e:
+                st.error(f"Error in prediction: {str(e)}")
 
 
 # Add footer
