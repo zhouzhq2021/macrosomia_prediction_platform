@@ -69,7 +69,7 @@ with st.sidebar:
 # Page routing
 if page == "Introduction":
     st.title("Ensemble Learning-Based Risk Prediction of Macrosomia Occurrence Study")
-    st.markdown("###About the Study")
+    st.markdown("### About the Study")
     st.markdown(" Macrosomia, one of the most prevalent pregnancy complications, is clinically defined as neonatal birth weight more than 4000 grams irrespective of gestational age. This condition poses substantial health risks to both mothers and fetuses. The effective utilization of routine prenatal examination data for accurate macrosomia prediction holds critical significance in optimizing pregnancy outcomes and ensuring maternal-fetal health.")
     st.markdown(" \n This study aims to systematically integrate diverse prenatal parameters, including maternal physical examination records, biochemical test results, and ultrasound findings. Through comprehensive data mining, we intend to identify potential risk factors for macrosomia and develop an advanced prediction model by combining multiple machine learning and deep learning approaches with ensemble learning methodology. The proposed model seeks to address current limitations in prediction accuracy and model generalizability observed in existing research, ultimately establishing a more objective, comprehensive, and clinically applicable decision-support tool for macrosomia management.")
     
@@ -94,8 +94,7 @@ if page == "Introduction":
         st.markdown('<div class="img-container">', unsafe_allow_html=True)
         st.image(img, 
                 caption='Stacking Ensemble Model Architecture', 
-                width=350,
-                use_column_width='auto')  # 保持自动宽度响应
+                width=350) 
         st.markdown('</div>', unsafe_allow_html=True)
 
     st.markdown("### Introduction to the 14 input model predictors")
@@ -120,22 +119,6 @@ elif page == "Prediction Platform":
             display: flex;
             justify-content: center;
             margin: 30px 0;
-        }
-        div.stButton > button {
-            font-size: 1.2rem !important;
-            padding: 15px 40px !important;
-            border-radius: 25px !important;
-            background: linear-gradient(135deg, #3498db, #2c3e50);
-            color: white !important;
-            border: none !important;
-            transition: all 0.3s ease;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
-        }
-
-        div.stButton > button:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 6px 12px rgba(0,0,0,0.2);
-            background: linear-gradient(135deg, #2c3e50, #3498db);
         }
     </style>''' , unsafe_allow_html=True)
 
