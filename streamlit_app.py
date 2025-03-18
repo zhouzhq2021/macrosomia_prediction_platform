@@ -71,11 +71,11 @@ with st.sidebar:
 if page == "Introduction":
     st.title("Ensemble Learning-Based Risk Prediction of Macrosomia Occurrence Study")
     st.markdown("###About the Study")
-    st.markdown(""" Macrosomia, one of the most prevalent pregnancy complications, is clinically defined as neonatal birth weight more than 4000 grams irrespective of gestational age. This condition poses substantial health risks to both mothers and fetuses. The effective utilization of routine prenatal examination data for accurate macrosomia prediction holds critical significance in optimizing pregnancy outcomes and ensuring maternal-fetal health.""")
-    st.markdown(""" \n This study aims to systematically integrate diverse prenatal parameters, including maternal physical examination records, biochemical test results, and ultrasound findings. Through comprehensive data mining, we intend to identify potential risk factors for macrosomia and develop an advanced prediction model by combining multiple machine learning and deep learning approaches with ensemble learning methodology. The proposed model seeks to address current limitations in prediction accuracy and model generalizability observed in existing research, ultimately establishing a more objective, comprehensive, and clinically applicable decision-support tool for macrosomia management.""")
+    st.markdown(" Macrosomia, one of the most prevalent pregnancy complications, is clinically defined as neonatal birth weight more than 4000 grams irrespective of gestational age. This condition poses substantial health risks to both mothers and fetuses. The effective utilization of routine prenatal examination data for accurate macrosomia prediction holds critical significance in optimizing pregnancy outcomes and ensuring maternal-fetal health.")
+    st.markdown(" \n This study aims to systematically integrate diverse prenatal parameters, including maternal physical examination records, biochemical test results, and ultrasound findings. Through comprehensive data mining, we intend to identify potential risk factors for macrosomia and develop an advanced prediction model by combining multiple machine learning and deep learning approaches with ensemble learning methodology. The proposed model seeks to address current limitations in prediction accuracy and model generalizability observed in existing research, ultimately establishing a more objective, comprehensive, and clinically applicable decision-support tool for macrosomia management.")
     
     st.markdown("### Stacking Model to Predict Macrosomia Occurrence")
-    st.markdown("""In this study, a Stacking Ensemble Model was designed to show superior performance in the task of macrosomia occurrence risk prediction. The 10-fold cross-validation results showed that the Accuracy of the model was **0.804**, the Recall was **0.813**, and the AUC was **0.891**. The following is the architecture diagram of the Stacking Ensemble Model, where four different base models were integrated in the base model layer, namely, CatBoost, RF, MLP, and KNN models. model, MLP model and KNN model are integrated, and each base model is independently parameterized by Bayesian optimization in the early stage to ensure that each base model performs optimally; the logistic regression model is chosen as the metamodel in the metamodel layer, and the probabilistic predictions of the base learners are combined to form the input features of the meta-model.""")
+    st.markdown("In this study, a Stacking Ensemble Model was designed to show superior performance in the task of macrosomia occurrence risk prediction. The 10-fold cross-validation results showed that the Accuracy of the model was **0.804**, the Recall was **0.813**, and the AUC was **0.891**. The following is the architecture diagram of the Stacking Ensemble Model, where four different base models were integrated in the base model layer, namely, CatBoost, RF, MLP, and KNN models. model, MLP model and KNN model are integrated, and each base model is independently parameterized by Bayesian optimization in the early stage to ensure that each base model performs optimally; the logistic regression model is chosen as the metamodel in the metamodel layer, and the probabilistic predictions of the base learners are combined to form the input features of the meta-model.")
 
 
     # img = Image.open('Stacking.png')  
@@ -83,13 +83,13 @@ if page == "Introduction":
 
     img = Image.open('Stacking.png')
     st.markdown("""
-    <style>
-    .img-container {
-        display: flex;
-        justify-content: center;
-        padding: 20px 0;
-    }
-    </style>
+        <style>
+        .img-container {
+                display: flex;
+                justify-content: center;
+                padding: 20px 0;
+            }
+        </style>
     """, unsafe_allow_html=True)
 
     with st.container():
@@ -101,7 +101,7 @@ if page == "Introduction":
         st.markdown('</div>', unsafe_allow_html=True)
 
     st.markdown("### Introduction to the 14 input model predictors")
-    st.markdown(""" 
+    st.markdown(" 
     | **Maternal Characteristics** | **Metabolic and Immunologic Indicators**       | **Fetal Ultrasound**       |
     |-------------------------------|----------------------------------------|----------------------------------------|
     | BMI                           | Thyroid Peroxidase Antibodies (1-20w) | Placenta Thickness (25-32w)       |
@@ -110,13 +110,13 @@ if page == "Introduction":
     | Pregnant Woman's Parity       | Free FT4 (1-20w)                      | Femur Length (25-32w)                  |
     |                               |                                        | Fetal Position (25-32w)               |
     |                               |                                        | Baby Gender                           |
-    """)
-    st.markdown(""" \n The first eight characteristics in the table are core continuous predictors and the last six are core subtype predictors. The system consists of three dimensions: maternal characteristics, metabolic and immunologic indicators, and fetal ultrasound.""")
+    ")
+    st.markdown(" \n The first eight characteristics in the table are core continuous predictors and the last six are core subtype predictors. The system consists of three dimensions: maternal characteristics, metabolic and immunologic indicators, and fetal ultrasound.")
 
 
 elif page == "Prediction Platform":
 
-    html_1 = f"""
+    html_1 = f""" 
     <style>
         div.button-container {
             display: flex;
