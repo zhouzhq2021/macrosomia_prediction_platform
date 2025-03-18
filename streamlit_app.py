@@ -13,7 +13,7 @@ def load_models():
 
 model, scaler = load_models()
 
-st.set_page_config(layout="wide")
+st.set_page_config(page_title="Platform for Risk Prediction of Macrosomia",layout="wide",initial_sidebar_state='auto')
 
 # Sidebar
 with st.sidebar:
