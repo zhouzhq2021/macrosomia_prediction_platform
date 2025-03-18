@@ -15,100 +15,148 @@ model, scaler = load_models()
 
 # Sidebar
 with st.sidebar:
+
+    st.markdown("""
+        <style>
+            /* 调整导航标题样式 */
+            .stTitle {
+                font-size: 1.8em !important;
+                margin-bottom: 25px !important;
+                color: #2c3e50 !important;
+            }
+            
+            /* 单选框容器样式 */
+            div[role="radiogroup"] {
+                gap: 15px;
+            }
+            
+            /* 单选框选项样式 */
+            .stRadio > label {
+                font-size: 1.1em !important;
+                padding: 10px 15px !important;
+                border-radius: 8px !important;
+                transition: all 0.3s ease !important;
+            }
+            
+            /* 鼠标悬停效果 */
+            .stRadio > label:hover {
+                background-color: #f5f6fa !important;
+                transform: translateX(5px);
+            }
+            
+            /* 选中状态样式 */
+            .stRadio > label[data-baseweb="radio"]:has(input:checked) {
+                background-color: #3498db !important;
+                color: white !important;
+                font-weight: 500 !important;
+            }
+        </style>
+        """, unsafe_allow_html=True)
+
     st.title("Navigation")
     page = st.radio("Page Selection",  
-                   ["App Introduction", 
-                    "Model Prediction", 
-                    "User Guide"],
-                   label_visibility="collapsed")  
-
-    st.markdown("---")
-    st.markdown("**About the Study**")
-    st.markdown("""
-    This study aims to integrate a series of physical records, biochemical tests, 
-                imaging tests and other clinical examination results during pregnancy, 
-                and on the basis of mining the key influencing factors of macrosomia, 
-                combine multiple machine learning and deep learning models, 
-                and introduce the Ensemble Learning (EL) method to establish a more objective and comprehensive, 
-                accurate and efficient prediction model of macrosomia, 
-                and overcome the low model accuracy of existing research methods.
+                   ["Introduction", 
+                    "Prediction Platform"],
+                   label_visibility="collapsed") 
     """)
+
+      # 添加间隔装饰线
+    st.markdown("---")
+    
+    # 添加辅助说明文字
+    st.markdown("<div style='font-size:0.9em; color:#7f8c8d; margin-top:30px;'></div>", 
+                unsafe_allow_html=True)
 
 # Page routing
-if page == "App Introduction":
-    st.title("Ensemble Learning-based Risk Prediction of Macrosomia Occurrence Study")
-    st.markdown("### Research Background")
+if page == "Introduction":
+    st.title("Ensemble Learning-Based Risk Prediction of Macrosomia Occurrence Study")
+    st.markdown("###About the Study")
     st.markdown("""
-        Macrosomia is one of the most common complications of pregnancy. In clinical practice, 
-        macrosomia is typically defined as a birth weight of 4000 grams or more, regardless of gestational age.
-        As a pregnancy complication, macrosomia poses significant health and life threats to both the mother and the fetus. 
-        
-        \n
-         
-        To date, the accurate diagnosis of macrosomia still relies primarily on the measurement of the infant's weight after birth. 
-        Techniques such as two-dimensional ultrasound, three-dimensional ultrasound, and magnetic resonance imaging (MRI) 
-        have limitations in accurately estimating fetal weight. Thus, effectively utilizing existing maternal examination 
-        results to accurately predict the probability of macrosomia is crucial for improving pregnancy outcomes and 
-        safeguarding the health of both mother and fetus.
+        Macrosomia, one of the most prevalent pregnancy complications, is clinically defined as neonatal birth weight ≥4000 grams irrespective of gestational age. This condition poses substantial health risks to both mothers and fetuses. 
+        The effective utilization of routine prenatal examination data for accurate macrosomia prediction holds critical significance in optimizing pregnancy outcomes and ensuring maternal-fetal health. \n
 
-        
+        This study aims to systematically integrate diverse prenatal parameters, including maternal physical examination records, biochemical test results, and ultrasound findings. Through comprehensive data mining, 
+        we intend to identify potential risk factors for macrosomia and develop an advanced prediction model by combining multiple machine learning and deep learning approaches with ensemble learning methodology. 
+        The proposed model seeks to address current limitations in prediction accuracy and model generalizability observed in existing research, ultimately establishing a more objective, comprehensive, and clinically applicable decision-support tool for macrosomia management.
+
     """)
     
-    st.markdown("### Model Architecture")
-    # st.markdown(""" """)
+    st.markdown("### Stacking Model to Predict Macrosomia Occurrence")
+    st.markdown(""" In this study, a Stacking Ensemble Model was designed to show superior performance in the task of macrosomia occurrence risk prediction. The 10-fold cross-validation results showed that the Accuracy of the model was **0.804**, the Recall was **0.813**, 
+    and the AUC was **0.891**. The following is the architecture diagram of the Stacking Ensemble Model, where four different base models were integrated in the base model layer, namely, CatBoost, RF, MLP, and KNN models. model, MLP model and KNN model are integrated, 
+    and each base model is independently parameterized by Bayesian optimization in the early stage to ensure that each base model performs optimally; the logistic regression model is chosen as the metamodel in the metamodel layer, 
+    and the probabilistic predictions of the base learners are combined to form the input features of the meta-model.""")
 
 
-    img = Image.open('Stacking.png')  
-    st.image(img, caption='Stacking Ensemble Model Structure', width=400)
-    
+    # img = Image.open('Stacking.png')  
+    # st.image(img, caption='Stacking Ensemble Model Architecture', width=350)
 
-elif page == "Model Prediction":
-    st.title("Risk Prediction Interface")
+    img = Image.open('Stacking.png')
+    st.markdown("""
+    <style>
+    .img-container {
+        display: flex;
+        justify-content: center;
+        padding: 20px 0;
+    }
+    </style>
+    """, unsafe_allow_html=True)
+
+    with st.container():
+        st.markdown('<div class="img-container">', unsafe_allow_html=True)
+        st.image(img, 
+                caption='Stacking Ensemble Model Architecture', 
+                width=350,
+                use_column_width='auto')  # 保持自动宽度响应
+        st.markdown('</div>', unsafe_allow_html=True)
+
+    st.markdown("### Introduction to the 14 input model predictors")
+    st.markdown(""" 
+    | **Maternal Characteristics** | **Metabolic and Immunologic Indicators**       | **Fetal Ultrasound**       |
+    |-------------------------------|----------------------------------------|----------------------------------------|
+    | BMI                           | Thyroid Peroxidase Antibodies (1-20w) | Placenta Thickness (25-32w)       |
+    | Pregnancy Week                | Anti-thyroid Peroxidase Antibodies(1-20w)  | Abdominal Circumference (25-32w)  |
+    | Fasting Glucose               | Max Intensity of Urine Glucose (1-32w)  | Biparietal Diameter (25-32w)         |
+    | Pregnant Woman's Parity       | Free FT4 (1-20w)                      | Femur Length (25-32w)                  |
+    |                               |                                        | Fetal Position (25-32w)               |
+    |                               |                                        | Baby Gender                           |
+    """)
+    st.markdown(""" The first eight characteristics in the table are core continuous predictors and the last six are core subtype predictors. 
+    The system consists of three dimensions: maternal characteristics, metabolic and immunologic indicators, and fetal ultrasound.""")
+
+
+elif page == "Prediction Platform":
+    st.title("Interface of Risk Prediction for Macrosomia Occurrence")
     
     # Create input columns
-    col1, col2 = st.columns(2)
+    col1, col2, col3 = st.columns(3)
 
-    feature_mapping = {
-        "BMI": "BMI",
-        "怀孕孕周": "Gestational Weeks",
-        "空腹葡萄糖": "Fasting Glucose (mmol/L)",
-        "25-32周婴儿胎盘厚": "Placental Thickness (mm)",
-        "25-32周婴儿腹围": "Abdominal Circumference (mm)",
-        "10-20周游离FT4": "Free FT4 (pmol/L)",
-        "25-32周婴儿双顶径": "Biparietal Diameter (mm)",
-        "25-32周婴儿股骨长": "Femur Length (mm)",
-        "婴儿性别": "Fetal Gender",
-        "孕妇产次": "Parity",
-        "25-32周婴儿胎位": "Fetal Position",
-        "1-20周甲状腺过氧化物酶抗体": "TPOAb (IU/mL)",
-        "1-20周抗甲状腺过氧化物酶抗体": "Anti-TPO (IU/mL)",
-        "1-32周尿葡萄糖最大阳性强度": "Urine Glucose"
-    }
-
-    # Continuous features: Using sliders for better UI
     with col1:
-        st.header("Continuous Features")
+        st.header("Maternal Characteristics")
 
         bmi = st.number_input("BMI", 15.0, 40.0, 25.0)
-        gestational_weeks = st.number_input("Gestational Weeks", 20, 42, 32)
+        gestational_weeks = st.number_input("Pregnancy Week", 20, 42, 30)
         fasting_glucose = st.number_input("Fasting Glucose (mmol/L)", 3.0, 10.0, 5.0)
-        placental_thickness = st.number_input("Placental Thickness (mm)", 10.0, 50.0, 25.0)
-        abdominal_circumference = st.number_input("Abdominal Circumference (mm)", 200.0, 400.0, 300.0)
-        ft4 = st.number_input("Free FT4 (pmol/L)", 5.0, 20.0, 12.0)
-        biparietal_diameter = st.number_input("Biparietal Diameter (mm)", 100.0, 500.0, 300.0)
-        femur_length = st.number_input("Femur Length (mm)", 100.0, 500.0, 300.0)
-
-# 分类变量
+        parity = st.selectbox("Pregnant Woman's Parity", [0, 1, 2, 3], index=0)
         
     with col2:
-        st.header("Categorical Features")
+        st.header("Metabolic and Immunologic Indicators")
+
+        TPOAb = st.selectbox("Thyroid Peroxidase Antibodies", ["Negative", "Positive"], index=0)
+        anti_tpo = st.selectbox("Anti-thyroid Peroxidase Antibodies", ["Negative", "Positive"], index=0)
+        urine_glucose = st.selectbox("Max Intensity of Urine Glucose", ["Negative", "+", "++", "+++", "++++"], index=0)
+        ft4 = st.number_input("Free FT4 (pmol/L)", 5.0, 20.0, 12.0)
         
-        gender = st.selectbox("Fetal Gender", ["Male", "Female"], index=0)
-        parity = st.selectbox("Parity", [0, 1, 2, 3], index=0)
+    
+    with col3:
+        st.header("Fetal Ultrasound")
+        placental_thickness = st.number_input("Placental Thickness (mm)", 10.0, 50.0, 25.0)
+        abdominal_circumference = st.number_input("Abdominal Circumference (mm)", 200.0, 400.0, 300.0)
+        biparietal_diameter = st.number_input("Biparietal Diameter (mm)", 100.0, 500.0, 300.0)
+        femur_length = st.number_input("Femur Length (mm)", 100.0, 500.0, 300.0)
         fetal_position = st.selectbox("Fetal Position", ["Cephalic", "Non-Cephalic"], index=0)
-        TPOAb = st.selectbox("TPOAb (IU/mL)", ["Negative", "Positive"], index=0)
-        anti_tpo = st.selectbox("Anti-TPO (IU/mL)", ["Negative", "Positive"], index=0)
-        urine_glucose = st.selectbox("Urine Glucose", ["Negative", "+", "++", "+++", "++++"], index=0)
+        gender = st.selectbox("Baby Gender", ["Male", "Female"], index=0)
+        
     
     gender_map = {"Male": 0, "Female": 1}
     fetal_position_map = {"Cephalic": 0, "Non-Cephalic": 1}
@@ -185,36 +233,15 @@ elif page == "Model Prediction":
                 
             st.markdown("---")
             if risk_prob > 0.7:
-                st.error("🚨 High Risk: Recommend clinical consultation and further monitoring. Further tests such as XYZ may be required.")
+                st.error("🚨 High Risk: Recommend clinical consultation and further monitoring.")
             elif risk_prob > 0.4:
-                st.warning("⚠️ Moderate Risk: Suggest increased monitoring frequency, and consider additional tests like ABC.")
+                st.warning("⚠️ Moderate Risk: Suggest increased monitoring frequency, and consider additional clinical examinations.")
             else:
                 st.success("✅ Low Risk: Maintain routine prenatal care. Regular check-ups are recommended.")
 
         except Exception as e:
             st.error(f"Error in prediction: {str(e)}")
 
-elif page == "User Guide":
-    st.title("How to use this Macrosomia Predictive System ")
-
-    
-    st.markdown("### 📋 Input Guidelines")
-    st.markdown("""
-    1. **Continuous Parameters**  
-    - Obtain from clinical measurements  
-    - Input exact numerical values
-    
-    2. **Categorical Parameters**  
-    - Select from standardized clinical reports  
-    - Use most recent measurement values
-    """)
-    
-    st.markdown("### ⚠️ Precautions")
-    st.markdown("""
-    - All data should be collected before 32 weeks gestation
-    - Measurement methods must follow standard protocols
-    - Results should be interpreted by qualified clinicians
-    """)
 
 # Add footer
 st.markdown("---")
