@@ -219,9 +219,7 @@ elif page == "Prediction Platform":
     input_df = pd.concat([input_df_1, other_data_df], axis=1)
     
     # Normalization and prediction
-    with st.container():
-        st.markdown('<div class="button-container">', unsafe_allow_html=True)
-        if st.button("Predict Risk"):
+    if st.button("Predict Risk"):
             try:
                 print(input_df)
                 risk_prob = model.predict_proba(input_df)[0][1]
