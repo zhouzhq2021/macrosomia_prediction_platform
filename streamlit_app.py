@@ -244,6 +244,8 @@ elif page == "Prediction Platform":
                         </div>
                         '''
                         st.markdown(gauge_html, unsafe_allow_html=True)
+                
+                st.markdown(" ")
                     
                 if risk_prob > 0.7:
                     st.error("🚨 High Risk: Recommend clinical consultation and further monitoring.")
