@@ -98,7 +98,7 @@ if page == "Introduction":
         st.markdown('<div class="img-container">', unsafe_allow_html=True)
         st.image(img, 
                 caption='Stacking Ensemble Model Architecture', 
-                width=420) 
+                width=350) 
         st.markdown('</div>', unsafe_allow_html=True)
 
 
