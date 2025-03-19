@@ -84,23 +84,7 @@ if page == "Introduction":
     # st.image(img, caption='Stacking Ensemble Model Architecture', width=350)
 
     img = Image.open('Stacking.png')
-    st.markdown('''
-    <style>
-    .img-container {
-        display: flex !important;
-        justify-content: center !important;
-        width: 100% !important;  # 关键：强制占满父容器宽度
-    }
-    </style>
-    ''', unsafe_allow_html=True)
-
-    with st.container():
-        st.markdown('<div class="img-container">', unsafe_allow_html=True)
-        st.image(img, 
-                caption='Stacking Ensemble Model Architecture', 
-                width=350) 
-        st.markdown('</div>', unsafe_allow_html=True)
-
+    st.image(img, caption='Stacking Ensemble Model Architecture', width=370) 
 
 elif page == "User Guide":
 
