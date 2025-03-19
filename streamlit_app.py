@@ -104,6 +104,8 @@ if page == "Introduction":
 
 elif page == "User Guide":
 
+    st.title("User Guide")
+
     st.markdown("### Introduction to the 14 input model predictors")
     st.markdown("""
     | **Maternal Characteristics** | **Metabolic and Immunologic Indicators**       | **Fetal Ultrasound**       |
@@ -243,7 +245,6 @@ elif page == "Prediction Platform":
                         '''
                         st.markdown(gauge_html, unsafe_allow_html=True)
                     
-                st.markdown("---")
                 if risk_prob > 0.7:
                     st.error("🚨 High Risk: Recommend clinical consultation and further monitoring.")
                 elif risk_prob > 0.4:
