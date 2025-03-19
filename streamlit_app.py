@@ -58,6 +58,7 @@ with st.sidebar:
     st.title("Navigation")
     page = st.radio("Page Selection",  
                    ["Introduction", 
+                    "User Guide",
                     "Prediction Platform"],
                    label_visibility="collapsed") 
 
@@ -100,6 +101,9 @@ if page == "Introduction":
                 width=420) 
         st.markdown('</div>', unsafe_allow_html=True)
 
+
+elif page == "User Guide":
+
     st.markdown("### Introduction to the 14 input model predictors")
     st.markdown("""
     | **Maternal Characteristics** | **Metabolic and Immunologic Indicators**       | **Fetal Ultrasound**       |
@@ -112,6 +116,13 @@ if page == "Introduction":
     |                               |                                        | Baby Gender                           |
     """ )
     st.markdown(" \n The first eight characteristics in the table are core continuous predictors and the last six are core subtype predictors. The system consists of three dimensions: maternal characteristics, metabolic and immunologic indicators, and fetal ultrasound.")
+
+    st.markdown("### Notes")
+    st.markdown("""
+    + Please follow the requirements in the indicator description to enter data on the platform that meets the clinical specification.
+    + When entering indicator data, please note that the unit is consistent with the requirements of the platform.
+    + When entering the indicator data, please note that the corresponding week of pregnancy is consistent with the platform.
+    """)
 
 
 elif page == "Prediction Platform":
