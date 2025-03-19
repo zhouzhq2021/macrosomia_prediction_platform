@@ -271,6 +271,6 @@ st.markdown('''
     text-align: center;
 }
 </style>
-<div class="footer"><p>Developed by zhouzhq2021@lzu.edu.cn © 2025</p></div>''', unsafe_allow_html=True)
+<div class="footer"><p>Developed by LZU - Zhongquan Zhou © 2025</p></div>''', unsafe_allow_html=True)
 
 # <p>Developed by AIMSLab - Macrosomia Prediction System © 2025</p>
