@@ -84,7 +84,7 @@ if page == "Introduction":
     # st.image(img, caption='Stacking Ensemble Model Architecture', width=350)
 
     img = Image.open('Stacking.png')
-    st.image(img, caption='Stacking Ensemble Model Architecture', width=550) 
+    st.image(img, caption='Stacking Ensemble Model Architecture', width=750) 
 
 elif page == "User Guide":
 
