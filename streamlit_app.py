@@ -15,6 +15,10 @@ def load_models():
 
 model, scaler = load_models()
 
+<<<<<<< HEAD
+=======
+
+>>>>>>> 5a48a2fba67abaab2ff06ccd301c6ba4db407151
 
 # Sidebar
 with st.sidebar:
