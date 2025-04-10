@@ -10,7 +10,7 @@ st.set_page_config(page_title="Platform for Risk Prediction of Macrosomia",layou
 @st.cache_resource
 def load_models():
     model = joblib.load('stacking_model.pkl')
-    scaler = joblib.load('z_score_scaler.pkl')
+    scaler = joblib.load('min_max_scaler.pkl')
     return model, scaler
 
 model, scaler = load_models()
@@ -78,7 +78,7 @@ if page == "Introduction":
     st.markdown(" \n This study aims to systematically integrate diverse prenatal parameters, including maternal physical records, biochemical test results, and fetal ultrasound. Through comprehensive data mining, we intend to identify potential risk factors for macrosomia and develop an advanced prediction model by combining multiple machine learning and deep learning approaches with ensemble learning methodology. The proposed model seeks to establish a more objective, comprehensive, and clinically applicable decision-support tool for macrosomia diagnosis.")
     
     st.markdown("### Stacking Model to Predict Macrosomia Occurrence")
-    st.markdown("In this study, a Stacking Ensemble Model was designed to show superior performance in the task of macrosomia occurrence risk prediction. The 10-fold cross-validation results showed that the Accuracy of the model was **0.804**, the Recall was **0.813**, and the AUC was **0.891**. The following is the architecture diagram of the Stacking Ensemble Model, where four different base models were integrated in the base model layer, namely, CatBoost, RF, MLP, and KNN models. model, MLP model and KNN model are integrated, and each base model is independently parameterized by Bayesian optimization in the early stage to ensure that each base model performs optimally. The logistic regression model is chosen as the meta-model in meta layer, and four probabilistic predictions of base learners are combined to form the input features of the meta-model.")
+    st.markdown("In this study, a Stacking Ensemble Model was designed to show superior performance in the task of macrosomia occurrence risk prediction. The 10-fold cross-validation results showed that the Accuracy of the model was **0.804**, the Recall was **0.814**, and the AUC was **0.888**. The following is the architecture diagram of the Stacking Ensemble Model, where four different base models were integrated in the base model layer, namely, LightGBM, RF, MLP, and SVM models, and each base model is independently parameterized by Bayesian optimization in the early stage to ensure that each base model performs optimally. The logistic regression model is chosen as the meta-model in meta layer, and four probabilistic predictions of base learners are combined to form the input features of the meta-model.")
 
 
     # img = Image.open('Stacking.png')  
@@ -91,18 +91,17 @@ elif page == "User Guide":
 
     st.title("User Guide")
 
-    st.markdown("### Introduction to the 14 input model predictors")
+    st.markdown("### Introduction to the 13 input model predictors")
     st.markdown("""
-    | **Maternal Characteristics** | **Metabolic and Immunologic Indicators**       | **Fetal Ultrasound**       |
+    | **Maternal Characteristics** | **Biochemical Examination**       | **Fetal Ultrasound**       |
     |-------------------------------|----------------------------------------|----------------------------------------|
-    | BMI                           | Thyroid Peroxidase Antibodies (1-20w) | Placenta Thickness (25-32w)       |
-    | Pregnancy Week                | Anti-thyroid Peroxidase Antibodies(1-20w)  | Abdominal Circumference (25-32w)  |
-    | Fasting Glucose               | Max Intensity of Urine Glucose (1-32w)  | Biparietal Diameter (25-32w)         |
-    | Pregnant Woman's Parity       | Free FT4 (1-20w)                      | Femur Length (25-32w)                  |
+    | BMI                           | Thyroid Peroxidase Antibodies (1-20w)  | Placenta Thickness (25-32w)       |
+    | Pregnancy Week                | Max Intensity of Urine Glucose (1-32w)  | Abdominal Circumference (25-32w)  |
+    | Fasting Glucose               | Free FT4 (1-20w)                        | Biparietal Diameter (25-32w)         |
+    | Pregnant Woman's Parity       |                                         | Head Circumference (25-32w)           |
     |                               |                                        | Fetal Position (25-32w)               |
     |                               |                                        | Baby Gender                           |
     """ )
-    st.markdown(" \n The first eight characteristics in the table are core continuous predictors and the last six are core subtype predictors. The system consists of three dimensions: maternal characteristics, metabolic and immunologic indicators, and fetal ultrasound.")
 
     st.markdown("### Notes")
     st.markdown("""
@@ -137,33 +136,31 @@ elif page == "Prediction Platform":
         parity = st.selectbox("Pregnant Woman's Parity", [0, 1, 2, 3], index=0)
         
     with col2:
-        st.header("Metabolic and Immunologic Indicators")
-
+        st.header("Biochemical Examination")
         TPOAb = st.selectbox("Thyroid Peroxidase Antibodies", ["Negative", "Positive"], index=0)
-        anti_tpo = st.selectbox("Anti-thyroid Peroxidase Antibodies", ["Negative", "Positive"], index=0)
         urine_glucose = st.selectbox("Max Intensity of Urine Glucose", ["Negative", "+", "++", "+++", "++++"], index=0)
         ft4 = st.number_input("Free FT4 (pmol/L)", 5.0, 20.0, 12.0)
         
     
     with col3:
         st.header("Fetal Ultrasound")
-        placental_thickness = st.number_input("Placental Thickness (mm)", 10.0, 50.0, 25.0)
-        abdominal_circumference = st.number_input("Abdominal Circumference (mm)", 200.0, 400.0, 300.0)
-        biparietal_diameter = st.number_input("Biparietal Diameter (mm)", 100.0, 500.0, 300.0)
-        femur_length = st.number_input("Femur Length (mm)", 100.0, 500.0, 300.0)
+        placental_thickness = st.number_input("Placental Thickness (mm)", 0.0, 50.0, 25.0)
+        abdominal_circumference = st.number_input("Abdominal Circumference (mm)", 0.0, 400.0, 240.0)
+        biparietal_diameter = st.number_input("Biparietal Diameter (mm)", 0.0, 150.0, 70.0)
+        head = st.number_input("Head Circumference (mm)", 0.0, 400.0, 240.0)
         fetal_position = st.selectbox("Fetal Position", ["Cephalic", "Non-Cephalic"], index=0)
         gender = st.selectbox("Baby Gender", ["Male", "Female"], index=0)
         
     
-    gender_map = {"Male": 0, "Female": 1}
+    gender_map = {"Male": 1, "Female": 0}
     fetal_position_map = {"Cephalic": 0, "Non-Cephalic": 1}
     tpoab_map = {"Negative": 0, "Positive": 1}
     anti_tpo_map = {"Negative": 0, "Positive": 1}
     urine_glucose_map = {"Negative": 0, "+": 1, "++": 2, "+++": 3, "++++": 4}
 
     columns_to_normalize = ['病人年龄', '怀孕孕周', 'BMI', '空腹葡萄糖', '10-20周游离FT4',
-                        '25-32周婴儿双顶径', '25-32周婴儿头围', '25-32周婴儿腹围', '25-32周婴儿股骨长', 
-                        '25-32周婴儿胎盘厚', '25-32周婴儿脐动脉S/D', '25-32周婴儿胎心', '1小时葡萄糖', '2小时葡萄糖']
+                        '25-32周婴儿双顶径', '25-32周婴儿头围', '25-32周婴儿腹围', 
+                        '25-32周婴儿股骨长', '25-32周婴儿胎盘厚', '25-32周婴儿脐动脉S/D', '25-32周婴儿胎心', '1小时葡萄糖', '2小时葡萄糖']
 
     data_to_normalize = {
         '病人年龄': 0,
@@ -172,9 +169,9 @@ elif page == "Prediction Platform":
         "空腹葡萄糖": fasting_glucose,
         "10-20周游离FT4": ft4,
         "25-32周婴儿双顶径": biparietal_diameter,
-        "25-32周婴儿头围": 0,
+        "25-32周婴儿头围": head,
         "25-32周婴儿腹围": abdominal_circumference,
-        "25-32周婴儿股骨长": femur_length,
+        "25-32周婴儿股骨长": 0,
         "25-32周婴儿胎盘厚": placental_thickness,
         '25-32周婴儿脐动脉S/D': 0,
         '25-32周婴儿胎心': 0,
@@ -187,7 +184,6 @@ elif page == "Prediction Platform":
         "孕妇产次": parity,
         "25-32周婴儿胎位": fetal_position_map[fetal_position],  # 映射胎位
         "1-20周甲状腺过氧化物酶抗体": tpoab_map[TPOAb],  # 映射TPOAb
-        "1-20周抗甲状腺过氧化物酶抗体": anti_tpo_map[anti_tpo],  # 映射Anti-TPO
         "1-32周尿葡萄糖最大阳性强度": urine_glucose_map[urine_glucose]  # 映射尿糖
     }
 
@@ -196,7 +192,7 @@ elif page == "Prediction Platform":
     scaled_features = scaler.transform(data_to_normalize_df)
 
     input_df_1 = pd.DataFrame(scaled_features, columns=data_to_normalize_df.columns)[
-        ["BMI", "怀孕孕周", "空腹葡萄糖", "25-32周婴儿胎盘厚", "25-32周婴儿腹围", "10-20周游离FT4", "25-32周婴儿双顶径", "25-32周婴儿股骨长"]
+        ["BMI", "怀孕孕周", "空腹葡萄糖", "25-32周婴儿胎盘厚", "25-32周婴儿腹围", "10-20周游离FT4", "25-32周婴儿双顶径", "25-32周婴儿头围"]
     ]
 
     other_data_df = pd.DataFrame([other_data])
